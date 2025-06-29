@@ -15,15 +15,14 @@ export class CacheService {
     private static readonly CACHE_DURATION = 24 * 60 * 60 * 1000;
 
     private static generateCookieHash(cookies: chrome.cookies.Cookie[]): string {
-        const cookieData = cookies
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map(cookie => ({
-                name: cookie.name,
-                domain: cookie.domain,
-                secure: cookie.secure,
-                httpOnly: cookie.httpOnly,
-                sameSite: cookie.sameSite || "None"
-            }));
+        const sortedCookies = [...cookies].sort((a, b) => a.name.localeCompare(b.name));
+        const cookieData = sortedCookies.map(cookie => ({
+            name: cookie.name,
+            domain: cookie.domain,
+            secure: cookie.secure,
+            httpOnly: cookie.httpOnly,
+            sameSite: cookie.sameSite ?? "None"
+        }));
 
         return btoa(JSON.stringify(cookieData));
     }
@@ -34,7 +33,7 @@ export class CacheService {
     ): Promise<string | null> {
         try {
             const result = await chrome.storage.local.get(this.CACHE_KEY);
-            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] || {};
+            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] ?? {};
 
             const cachedEntry = cache[domain];
             if (!cachedEntry) {
@@ -68,7 +67,7 @@ export class CacheService {
     ): Promise<void> {
         try {
             const result = await chrome.storage.local.get(this.CACHE_KEY);
-            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] || {};
+            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] ?? {};
 
             const cookieHash = this.generateCookieHash(cookies);
 
@@ -90,7 +89,7 @@ export class CacheService {
     static async clearDomainCache(domain: string): Promise<void> {
         try {
             const result = await chrome.storage.local.get(this.CACHE_KEY);
-            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] || {};
+            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] ?? {};
 
             delete cache[domain];
             await chrome.storage.local.set({ [this.CACHE_KEY]: cache });
@@ -112,7 +111,7 @@ export class CacheService {
     static async getCacheStats(): Promise<{ totalEntries: number; totalSize: number }> {
         try {
             const result = await chrome.storage.local.get(this.CACHE_KEY);
-            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] || {};
+            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] ?? {};
 
             const totalEntries = Object.keys(cache).length;
             const totalSize = JSON.stringify(cache).length;
@@ -127,7 +126,7 @@ export class CacheService {
     static async cleanupExpiredEntries(): Promise<void> {
         try {
             const result = await chrome.storage.local.get(this.CACHE_KEY);
-            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] || {};
+            const cache: Record<string, CachedAnalysis> = result[this.CACHE_KEY] ?? {};
 
             const now = Date.now();
             let cleanedCount = 0;
@@ -153,7 +152,8 @@ export class CacheService {
             const urlObj = new URL(url);
             return urlObj.hostname.replace(/^www\./, '');
         } catch (error) {
-            return url;
+            logError(ErrorContext.VALIDATION_ERROR, error, { url });
+            return 'unknown-domain';
         }
     }
 }

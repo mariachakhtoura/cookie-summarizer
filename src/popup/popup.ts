@@ -1,7 +1,7 @@
 import { CookieService } from '../services/cookie-service';
 import { AIService } from '../services/ai-service';
 import { CacheService } from '../services/cache-service';
-import { UIManager } from './ui-manager';
+import { CookieAnalysisPopup } from './cookie-analysis-popup';
 import { handleError } from '../utils/logger';
 import { ErrorContext } from '../utils/error-constants';
 
@@ -9,18 +9,25 @@ class CookieAnalyzer {
     private currentTab: chrome.tabs.Tab | null = null;
     private cookies: chrome.cookies.Cookie[] = [];
     private isAnalyzing: boolean = false;
-    private uiManager: UIManager;
+    private readonly popup: CookieAnalysisPopup;
 
     constructor() {
-        this.uiManager = new UIManager();
+        this.popup = new CookieAnalysisPopup();
         this.bindEvents();
-        this.loadCurrentTab();
+    }
 
-        CacheService.cleanupExpiredEntries();
+    public async init(): Promise<void> {
+        try {
+            await this.loadCurrentTab();
+            CacheService.cleanupExpiredEntries();
+        } catch (error) {
+            handleError(ErrorContext.POPUP_INIT, error, 'Failed to initialize popup');
+            this.popup.setErrorState();
+        }
     }
 
     private bindEvents(): void {
-        this.uiManager.bindEvents(
+        this.popup.bindEvents(
             () => this.forceRefreshAnalysis()
         );
     }
@@ -39,12 +46,12 @@ class CookieAnalyzer {
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
             this.currentTab = tab;
 
-            this.uiManager.updateTitle(tab.url || '');
+            this.popup.updateTitle(tab.url ?? '');
 
             await this.loadCookies();
         } catch (error) {
             handleError(ErrorContext.TAB_ACTIVATION_HANDLER, error, 'Failed to load current tab');
-            this.uiManager.setErrorState();
+            this.popup.setErrorState();
         }
     }
 
@@ -54,18 +61,18 @@ class CookieAnalyzer {
         try {
             this.cookies = await CookieService.loadCookiesForTab(this.currentTab.url);
 
-            this.uiManager.updateSubtitle(this.cookies.length, 'loading');
+            this.popup.updateSubtitle(this.cookies.length, 'loading');
 
             if (this.cookies.length > 0) {
                 await this.analyzeCookies();
             } else {
-                this.uiManager.showResults();
-                this.uiManager.displayNoCookiesMessage();
+                this.popup.showResults();
+                this.popup.displayNoCookiesMessage();
             }
 
         } catch (error) {
             handleError(ErrorContext.GET_COOKIES_OPERATION, error, 'Failed to load cookies', { url: this.currentTab.url });
-            this.uiManager.updateSubtitle(0, 'error', 'Error loading cookies');
+            this.popup.updateSubtitle(0, 'error', 'Error loading cookies');
         }
     }
 
@@ -73,10 +80,10 @@ class CookieAnalyzer {
         if (this.isAnalyzing || this.cookies.length === 0) return;
 
         this.isAnalyzing = true;
-        this.uiManager.showResults();
+        this.popup.showResults();
 
         try {
-            const domain = CacheService.getDomainFromUrl(this.currentTab?.url || '');
+            const domain = CacheService.getDomainFromUrl(this.currentTab?.url ?? '');
 
             const cachedAnalysis = await CacheService.getCachedAnalysis(domain, this.cookies);
 
@@ -84,26 +91,24 @@ class CookieAnalyzer {
 
             if (cachedAnalysis) {
                 analysis = cachedAnalysis;
-                console.log('🎯 Using cached analysis for', domain);
-                this.uiManager.updateSubtitle(this.cookies.length, 'complete');
+                this.popup.updateSubtitle(this.cookies.length, 'complete');
             } else {
-                this.uiManager.showLoadingState();
-                this.uiManager.updateSubtitle(this.cookies.length, 'analyzing');
+                this.popup.showLoadingState();
+                this.popup.updateSubtitle(this.cookies.length, 'analyzing');
 
-                console.log('🤖 Generating new analysis for', domain);
                 analysis = await AIService.generateCookieAnalysis(this.cookies);
 
                 await CacheService.setCachedAnalysis(domain, this.cookies, analysis);
-                this.uiManager.updateSubtitle(this.cookies.length, 'complete');
+                this.popup.updateSubtitle(this.cookies.length, 'complete');
             }
 
-            this.uiManager.displayAnalysis(analysis);
+            this.popup.displayAnalysis(analysis);
 
-            this.uiManager.updateCookieDetails(this.cookies);
+            this.popup.updateCookieDetails(this.cookies);
 
         } catch (error) {
             handleError(ErrorContext.ANALYZE_COOKIES_OPERATION, error, 'Failed to analyze cookies', {
-                domain: CacheService.getDomainFromUrl(this.currentTab?.url || ''),
+                domain: CacheService.getDomainFromUrl(this.currentTab?.url ?? ''),
                 cookieCount: this.cookies.length
             });
 
@@ -122,16 +127,17 @@ class CookieAnalyzer {
                 errorMessage += 'Please check your Chrome AI setup.';
             }
 
-            this.uiManager.displayError(errorMessage);
+            this.popup.displayError(errorMessage);
         } finally {
             this.isAnalyzing = false;
         }
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        new CookieAnalyzer();
+        const analyzer = new CookieAnalyzer();
+        await analyzer.init();
     } catch (error) {
         handleError(ErrorContext.POPUP_INIT, error, 'Failed to start extension');
     }

@@ -107,42 +107,408 @@ body {
     font-size: var(--font-size-base);
 }
 
-.container {
-    width: var(--popup-width);
-    background: var(--color-bg-primary);
+/* =============================================================================
+   Utility Classes - Display
+   ============================================================================= */
+.flex {
     display: flex;
+}
+
+.flex-col {
     flex-direction: column;
-    border: var(--border-width) solid var(--color-border-primary);
-    border-radius: var(--border-radius-lg);
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-cols-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.overflow-hidden {
     overflow: hidden;
-    box-shadow: 0 4px 20px var(--shadow-primary);
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
 }
 
 /* =============================================================================
-   Header Component
+   Utility Classes - Spacing
    ============================================================================= */
-.header {
-    background: var(--gradient-primary);
+.m-0 {
+    margin: 0;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.p-xs {
+    padding: var(--space-xs);
+}
+
+.p-sm {
+    padding: var(--space-sm);
+}
+
+.p-md {
+    padding: var(--space-md);
+}
+
+.p-lg {
+    padding: var(--space-lg);
+}
+
+.p-xl {
+    padding: var(--space-xl);
+}
+
+.p-2xl {
+    padding: var(--space-2xl);
+}
+
+.px-sm {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+}
+
+.px-lg {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+.px-xl {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+}
+
+.py-sm {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+}
+
+.py-lg {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+}
+
+.gap-sm {
+    gap: var(--space-sm);
+}
+
+.gap-md {
+    gap: var(--space-md);
+}
+
+.mb-xs {
+    margin-bottom: var(--space-xs);
+}
+
+.mb-sm {
+    margin-bottom: var(--space-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--space-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--space-lg);
+}
+
+.mb-xl {
+    margin-bottom: var(--space-xl);
+}
+
+.mb-2xl {
+    margin-bottom: var(--space-2xl);
+}
+
+.mt-lg {
+    margin-top: var(--space-lg);
+}
+
+.pl-xl {
+    padding-left: var(--space-xl);
+}
+
+/* =============================================================================
+   Utility Classes - Colors
+   ============================================================================= */
+.text-primary {
+    color: var(--color-text-primary);
+}
+
+.text-secondary {
+    color: var(--color-text-secondary);
+}
+
+.text-accent {
+    color: var(--color-text-accent);
+}
+
+.text-error {
+    color: var(--color-text-error);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-white {
     color: var(--color-text-white);
-    padding: var(--space-lg) var(--space-xl);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
 }
 
-.header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: repeating-conic-gradient(from 0deg at 50% 50%,
-            transparent 0deg 30deg,
-            rgba(255, 255, 255, 0.1) 30deg 60deg);
-    animation: rotate 20s linear infinite;
+.bg-primary {
+    background: var(--color-bg-primary);
 }
 
+.bg-secondary {
+    background: var(--color-bg-secondary);
+}
+
+.bg-card {
+    background: var(--color-bg-card);
+}
+
+.bg-accent {
+    background: var(--color-bg-accent);
+}
+
+.bg-error {
+    background: var(--color-bg-error);
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}
+
+.bg-gradient-secondary {
+    background: var(--gradient-secondary);
+}
+
+.bg-gradient-card {
+    background: var(--gradient-card);
+}
+
+/* =============================================================================
+   Utility Classes - Typography
+   ============================================================================= */
+.text-xs {
+    font-size: var(--font-size-xs);
+}
+
+.text-sm {
+    font-size: var(--font-size-sm);
+}
+
+.text-base {
+    font-size: var(--font-size-base);
+}
+
+.text-lg {
+    font-size: var(--font-size-lg);
+}
+
+.text-xl {
+    font-size: var(--font-size-xl);
+}
+
+.text-2xl {
+    font-size: var(--font-size-2xl);
+}
+
+.font-normal {
+    font-weight: var(--font-weight-normal);
+}
+
+.font-medium {
+    font-weight: var(--font-weight-medium);
+}
+
+.font-semibold {
+    font-weight: var(--font-weight-semibold);
+}
+
+.font-bold {
+    font-weight: var(--font-weight-bold);
+}
+
+.leading-tight {
+    line-height: var(--line-height-tight);
+}
+
+.leading-normal {
+    line-height: var(--line-height-normal);
+}
+
+.leading-relaxed {
+    line-height: var(--line-height-relaxed);
+}
+
+/* =============================================================================
+   Utility Classes - Borders & Sizing
+   ============================================================================= */
+.border {
+    border: var(--border-width) solid var(--color-border-primary);
+}
+
+.border-secondary {
+    border-color: var(--color-border-secondary);
+}
+
+.border-light {
+    border-color: var(--color-border-light);
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--color-border-primary);
+}
+
+.rounded {
+    border-radius: var(--border-radius);
+}
+
+.rounded-sm {
+    border-radius: var(--border-radius-sm);
+}
+
+.rounded-lg {
+    border-radius: var(--border-radius-lg);
+}
+
+.rounded-full {
+    border-radius: 50%;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-auto {
+    height: auto;
+}
+
+.max-h-220 {
+    max-height: 220px;
+}
+
+.min-h-200 {
+    min-height: 200px;
+}
+
+.min-w-28 {
+    min-width: 28px;
+}
+
+.h-28 {
+    height: 28px;
+}
+
+.w-40 {
+    width: 40px;
+}
+
+.h-40 {
+    height: 40px;
+}
+
+.w-popup {
+    width: var(--popup-width);
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* =============================================================================
+   Utility Classes - Effects
+   ============================================================================= */
+.shadow-primary {
+    box-shadow: 0 4px 20px var(--shadow-primary);
+}
+
+.shadow-secondary {
+    box-shadow: 0 2px 8px var(--shadow-secondary);
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 4px var(--shadow-secondary);
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.opacity-95 {
+    opacity: 0.95;
+}
+
+.transition-fast {
+    transition: all var(--transition-fast);
+}
+
+.transition-normal {
+    transition: all var(--transition-normal);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.z-base {
+    z-index: var(--z-base);
+}
+
+/* =============================================================================
+   Animations & Unique Effects
+   ============================================================================= */
 @keyframes rotate {
     from {
         transform: rotate(0deg);
@@ -163,352 +529,121 @@ body {
     }
 }
 
-.header-content {
-    position: relative;
-    z-index: var(--z-base);
+.header-animated::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-conic-gradient(from 0deg at 50% 50%,
+            transparent 0deg 30deg,
+            rgba(255, 255, 255, 0.1) 30deg 60deg);
+    animation: rotate 20s linear infinite;
 }
 
-.title {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-xs);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.subtitle {
-    font-size: var(--font-size-sm);
-    opacity: 0.95;
-    font-weight: var(--font-weight-normal);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border-primary);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto var(--space-lg) auto;
+    display: block;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 /* =============================================================================
-   Main Content Layout
+   Content-specific styling that can't be utilities
    ============================================================================= */
-.main-content {
-    padding: var(--space-xl);
-    flex: 1;
-    min-height: 200px;
-    background: var(--color-bg-primary);
+/* Analysis text markdown styling */
+.analysis-text p {
+    margin-bottom: var(--space-md);
 }
 
-.analysis-content {
+.analysis-text strong {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+}
+
+.analysis-text h1,
+.analysis-text h2,
+.analysis-text h3,
+.analysis-text h4,
+.analysis-text h5,
+.analysis-text h6 {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+    margin: var(--space-lg) 0 var(--space-md) 0;
+}
+
+.analysis-text ul,
+.analysis-text ol {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-xl);
+}
+
+.analysis-text li {
+    margin-bottom: var(--space-sm);
+}
+
+.analysis-text code {
+    background: var(--color-bg-accent);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
     color: var(--color-text-primary);
+}
 
-    /* =============================================================================
-   Analysis Header with Refresh Button
+.analysis-text pre {
+    background: var(--color-bg-accent);
+    padding: var(--space-md);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    margin: var(--space-md) 0;
+    border: 1px solid var(--color-border-primary);
+}
+
+.analysis-text pre code {
+    background: none;
+    padding: 0;
+}
+
+/* =============================================================================
+   Scrollbar Styling (WebKit browsers) - can't be utilities
    ============================================================================= */
-    .analysis-header {
-        margin-bottom: var(--space-md);
-        border-bottom: 1px solid var(--color-border-primary);
-        padding-bottom: var(--space-sm);
-    }
+.analysis-content::-webkit-scrollbar,
+.cookie-list::-webkit-scrollbar {
+    width: 6px;
+}
 
-    .analysis-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.analysis-content::-webkit-scrollbar-track,
+.cookie-list::-webkit-scrollbar-track {
+    background: var(--color-bg-card);
+    border-radius: 3px;
+}
 
-    .analysis-title h3 {
-        font-size: var(--font-size-xl);
-        color: var(--color-text-secondary);
-        margin: 0;
-        font-weight: var(--font-weight-bold);
-    }
+.analysis-content::-webkit-scrollbar-thumb,
+.cookie-list::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 3px;
+}
 
-    .refresh-btn {
-        background: var(--color-bg-primary);
-        border: 1px solid var(--color-border-primary);
-        border-radius: var(--border-radius-sm);
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        font-size: var(--font-size-lg);
-        padding: var(--space-xs) var(--space-sm);
-        transition: all var(--transition-fast);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 28px;
-        height: 28px;
-    }
+.analysis-content::-webkit-scrollbar-thumb:hover,
+.cookie-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
 
-    .refresh-btn:hover {
-        background: var(--color-bg-accent);
-        border-color: var(--color-border-secondary);
-        color: var(--color-text-accent);
-        transform: rotate(90deg);
-    }
-
-    .refresh-btn:active {
-        transform: rotate(180deg) scale(0.95);
-    }
-
-    /* =============================================================================
-   Loading State
-   ============================================================================= */
-    .loading-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: var(--space-2xl);
-        color: var(--color-text-secondary);
-    }
-
-    .spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid var(--color-border-primary);
-        border-top: 3px solid var(--color-primary);
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-        margin: 0 auto var(--space-lg) auto;
-        display: block;
-        will-change: transform;
-        backface-visibility: hidden;
-    }
-
-    .loading-state p {
-        font-weight: var(--font-weight-semibold);
-        color: var(--color-text-secondary);
-        margin: 0;
-    }
-
-    /* =============================================================================
-   Analysis Text Styling
-   ============================================================================= */
-    .analysis-text {
-        font-size: var(--font-size-lg);
-        line-height: var(--line-height-relaxed);
-        color: var(--color-text-primary);
-        font-weight: var(--font-weight-medium);
-    }
-
-    .analysis-text p {
-        margin-bottom: var(--space-md);
-    }
-
-    .analysis-text strong {
-        color: var(--color-text-accent);
-        font-weight: var(--font-weight-bold);
-    }
-
-    .analysis-text h1,
-    .analysis-text h2,
-    .analysis-text h3,
-    .analysis-text h4,
-    .analysis-text h5,
-    .analysis-text h6 {
-        color: var(--color-text-accent);
-        font-weight: var(--font-weight-bold);
-        margin: var(--space-lg) 0 var(--space-md) 0;
-    }
-
-    .analysis-text ul,
-    .analysis-text ol {
-        margin: var(--space-md) 0;
-        padding-left: var(--space-xl);
-    }
-
-    .analysis-text li {
-        margin-bottom: var(--space-sm);
-    }
-
-    .analysis-text code {
-        background: var(--color-bg-accent);
-        padding: var(--space-xs) var(--space-sm);
-        border-radius: var(--border-radius-sm);
-        font-family: 'Courier New', monospace;
-        font-size: var(--font-size-sm);
-        color: var(--color-text-primary);
-    }
-
-    .analysis-text pre {
-        background: var(--color-bg-accent);
-        padding: var(--space-md);
-        border-radius: var(--border-radius);
-        overflow-x: auto;
-        margin: var(--space-md) 0;
-        border: 1px solid var(--color-border-primary);
-    }
-
-    .analysis-text pre code {
-        background: none;
-        padding: 0;
-    }
-
-    /* =============================================================================
-   Error and No-Cookies States
-   ============================================================================= */
-    .error-state {
-        padding: var(--space-xl);
-        text-align: center;
-    }
-
-    .error-state p {
-        color: var(--color-text-error);
-        font-weight: var(--font-weight-semibold);
-        background: var(--color-bg-error);
-        padding: var(--space-md);
-        border-radius: var(--border-radius);
-        border: var(--border-width) solid var(--color-border-light);
-        margin: 0;
-    }
-
-    .no-cookies-state {
-        padding: var(--space-xl);
-        text-align: center;
-    }
-
-    .no-cookies-state p {
-        color: var(--color-text-secondary);
-        font-weight: var(--font-weight-medium);
-        margin-bottom: var(--space-md);
-    }
-
-    .no-cookies-state p:last-child {
-        margin-bottom: 0;
-        color: var(--color-text-muted);
-        font-size: var(--font-size-sm);
-    }
-
-    /* =============================================================================
-   Cookie Details Component
-   ============================================================================= */
-    .cookie-details {
-        background: var(--gradient-card);
-        border: var(--border-width) solid var(--color-border-secondary);
-        border-radius: var(--border-radius-lg);
-        padding: var(--space-lg);
-        margin-bottom: var(--space-xl);
-        box-shadow: 0 2px 8px var(--shadow-secondary);
-    }
-
-    .cookie-details h4 {
-        margin-bottom: var(--space-lg);
-        color: var(--color-text-secondary);
-        font-size: var(--font-size-xl);
-        font-weight: var(--font-weight-bold);
-    }
-
-    .cookie-list {
-        max-height: 220px;
-        overflow-y: auto;
-    }
-
-    .cookie-item {
-        background: var(--color-bg-primary);
-        border: var(--border-width) solid var(--color-border-primary);
-        border-radius: var(--border-radius);
-        padding: var(--space-lg);
-        margin-bottom: var(--space-sm);
-        box-shadow: 0 1px 4px var(--shadow-secondary);
-    }
-
-    .cookie-name {
-        font-weight: var(--font-weight-bold);
-        color: var(--color-text-accent);
-        margin-bottom: var(--space-sm);
-        font-size: var(--font-size-lg);
-    }
-
-    .cookie-details-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-sm);
-        font-size: var(--font-size-sm);
-        color: var(--color-text-secondary);
-    }
-
-    .cookie-detail {
-        display: flex;
-        justify-content: space-between;
-        padding: var(--space-sm);
-        background: var(--color-bg-secondary);
-        border-radius: var(--border-radius-sm);
-        border: 1px solid var(--color-border-primary);
-    }
-
-    .cookie-detail span:first-child {
-        font-weight: var(--font-weight-semibold);
-        color: var(--color-text-primary);
-    }
-
-    /* =============================================================================
-   Footer Component
-   ============================================================================= */
-    .footer {
-        padding: var(--space-lg) var(--space-xl);
-        border-top: var(--border-width) solid var(--color-border-primary);
-        background: var(--gradient-card);
-    }
-
-    /* =============================================================================
-   Button Components
-   ============================================================================= */
-    .toggle-btn {
-        background: var(--gradient-secondary);
-        border: var(--border-width) solid var(--color-border-primary);
-        color: var(--color-text-white);
-        padding: var(--space-sm) var(--space-lg);
-        border-radius: var(--border-radius);
-        font-size: var(--font-size-base);
-        font-weight: var(--font-weight-semibold);
-        cursor: pointer;
-        transition: all var(--transition-normal);
-        width: 100%;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    .toggle-btn:hover {
-        background: var(--gradient-primary);
-        transform: translateY(-1px);
-        box-shadow: 0 3px 10px var(--shadow-accent);
-    }
-
-    .toggle-btn:focus {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-    }
-
-    .toggle-btn:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    /* =============================================================================
-   Scrollbar Styling (WebKit browsers)
-   ============================================================================= */
-    .analysis-content::-webkit-scrollbar,
-    .cookie-list::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .analysis-content::-webkit-scrollbar-track,
-    .cookie-list::-webkit-scrollbar-track {
-        background: var(--color-bg-card);
-        border-radius: 3px;
-    }
-
-    .analysis-content::-webkit-scrollbar-thumb,
-    .cookie-list::-webkit-scrollbar-thumb {
-        background: var(--color-secondary);
-        border-radius: 3px;
-    }
-
-    .analysis-content::-webkit-scrollbar-thumb:hover,
-    .cookie-list::-webkit-scrollbar-thumb:hover {
-        background: var(--color-primary);
-    }
-
-    /* =============================================================================
+/* =============================================================================
    Responsive Design
    ============================================================================= */
-    @media (max-width: 400px) {
-        .container {
-            width: 100vw;
-            height: 100vh;
-            border-radius: 0;
-        }
+@media (max-width: 400px) {
+    .container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
     }
 }

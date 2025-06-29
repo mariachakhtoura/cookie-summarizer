@@ -34,11 +34,11 @@ export interface ErrorResponse {
     details?: string;
 }
 
-export interface SuccessResponse<T = any> {
+export interface SuccessResponse<T = unknown> {
     success: true;
     data?: T;
     count?: number;
-    cookies?: any[];
+    cookies?: unknown[];
 }
 
-export type ApiResponse<T = any> = ErrorResponse | SuccessResponse<T>;
+export type ApiResponse<T = unknown> = ErrorResponse | SuccessResponse<T>;

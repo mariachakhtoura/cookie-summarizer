@@ -1,6 +1,6 @@
-import { StorageData, InstallationDetails } from '../types/extension';
 import { handleError, createSuccessResponse } from '../utils/logger';
 import { ErrorContext, ErrorMessage } from '../utils/error-constants';
+import { MessageType, GetCookiesMessage, AnalyzeCookiesMessage, GetPageInfoMessage, AnalyzePageCookiesMessage, CookieCountUpdatedMessage, ExtensionMessage, StorageData, InstallationDetails, ResponseCallback } from '../types/index';
 
 chrome.runtime.onInstalled.addListener(async (details: InstallationDetails): Promise<void> => {
     try {
@@ -16,26 +16,33 @@ chrome.runtime.onInstalled.addListener(async (details: InstallationDetails): Pro
     }
 });
 
-chrome.runtime.onMessage.addListener((message: any, sender: chrome.runtime.MessageSender, sendResponse: (response: any) => void) => {
+chrome.runtime.onMessage.addListener((message: ExtensionMessage, sender: chrome.runtime.MessageSender, sendResponse: ResponseCallback) => {
     try {
         switch (message.type) {
-            case 'GET_COOKIES':
-                handleGetCookies(message, sender, sendResponse);
+            case MessageType.GET_COOKIES: {
+                handleGetCookies(message, sendResponse);
                 return true;
+            }
 
-            case 'ANALYZE_COOKIES':
-                handleAnalyzeCookies(message, sender, sendResponse);
+            case MessageType.ANALYZE_COOKIES: {
+                handleAnalyzeCookies(message, sendResponse);
                 return true;
+            }
 
-            default:
+            default: {
+                const messageType = message?.type || 'undefined';
                 const errorResponse = handleError(
                     ErrorContext.UNKNOWN_MESSAGE_TYPE,
-                    new Error(`Unknown message type: ${message.type}`),
+                    new Error(`Unknown message type: ${messageType}`),
                     ErrorMessage.UNKNOWN_MESSAGE_TYPE,
-                    { messageType: message.type }
+                    {
+                        messageType,
+                        receivedMessage: JSON.stringify(message, null, 2)
+                    }
                 );
                 sendResponse(errorResponse);
                 return false;
+            }
         }
     } catch (error) {
         const errorResponse = handleError(
@@ -49,7 +56,7 @@ chrome.runtime.onMessage.addListener((message: any, sender: chrome.runtime.Messa
     }
 });
 
-async function handleGetCookies(message: any, sender: chrome.runtime.MessageSender, sendResponse: (response: any) => void): Promise<void> {
+async function handleGetCookies(message: GetCookiesMessage, sendResponse: ResponseCallback): Promise<void> {
     try {
         if (!message.url) {
             throw new Error(ErrorMessage.NO_URL_PROVIDED);
@@ -72,7 +79,7 @@ async function handleGetCookies(message: any, sender: chrome.runtime.MessageSend
     }
 }
 
-async function handleAnalyzeCookies(message: any, sender: chrome.runtime.MessageSender, sendResponse: (response: any) => void): Promise<void> {
+async function handleAnalyzeCookies(message: AnalyzeCookiesMessage, sendResponse: ResponseCallback): Promise<void> {
     try {
         if (!message.cookies) {
             throw new Error(ErrorMessage.NO_COOKIES_PROVIDED);

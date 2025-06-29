@@ -24,7 +24,8 @@ jobs:
           args:
             -Dsonar.projectKey=mariachakhtoura_cookie-summarizer
             -Dsonar.organization=cookie-summarizer
-            -Dsonar.sources=src
+            -Dsonar.sources=.
+            -Dsonar.inclusions=src/**/*
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.d.ts,webpack.config.js
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info

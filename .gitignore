@@ -10,6 +10,7 @@ dist/
 Thumbs.db
 
 # IDE
+.github/copilot-instructions.md
 .vscode/settings.json
 .idea/
 

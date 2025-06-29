@@ -9,25 +9,26 @@
 </head>
 
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="header-content">
-                <h1 class="title" id="dynamicTitle">Cookie Summarizer</h1>
-                <p class="subtitle" id="dynamicSubtitle">Loading...</p>
+    <div class="w-popup bg-primary flex flex-col border rounded-lg overflow-hidden shadow-primary">
+        <header class="bg-gradient-primary text-white p-lg px-xl text-center relative overflow-hidden header-animated">
+            <div class="relative z-base">
+                <h1 class="text-2xl font-bold mb-xs text-shadow" id="dynamicTitle">Cookie Summarizer</h1>
+                <p class="text-sm opacity-95 font-normal text-shadow-sm" id="dynamicSubtitle">Loading...</p>
             </div>
         </header>
 
-        <main class="main-content">
-            <div id="analysisContent" class="analysis-content" style="display: none;">
-                <div class="loading-state">
+        <main class="p-xl flex-1 min-h-200 bg-primary">
+            <div id="analysisContent" class="text-primary hidden">
+                <div class="flex flex-col items-center justify-center p-2xl text-secondary">
                     <div class="spinner"></div>
-                    <p>Analyzing cookies...</p>
+                    <p class="font-semibold text-secondary m-0">Analyzing cookies...</p>
                 </div>
             </div>
 
-            <div class="cookie-details" id="cookieDetails" style="display: none;">
-                <h4>Cookie Details</h4>
-                <div class="cookie-list" id="cookieList"></div>
+            <div class="bg-gradient-card border border-secondary rounded-lg p-lg mb-xl shadow-secondary hidden"
+                id="cookieDetails">
+                <h4 class="mb-lg text-secondary text-xl font-bold">Cookie Details</h4>
+                <div class="max-h-220 overflow-y-auto" id="cookieList"></div>
             </div>
         </main>
     </div>

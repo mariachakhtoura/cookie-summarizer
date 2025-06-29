@@ -1,6 +1,6 @@
-import { ErrorContext, ErrorMessage, ErrorResponse, SuccessResponse } from './error-constants';
+import { ErrorContext, ErrorResponse, SuccessResponse } from './error-constants';
 
-export function logError(context: string, error: unknown, additionalData?: any): void {
+export function logError(context: string, error: unknown, additionalData?: unknown): void {
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorStack = error instanceof Error ? error.stack : undefined;
 
@@ -11,14 +11,14 @@ export function logError(context: string, error: unknown, additionalData?: any):
     });
 }
 
-export function logInfo(context: string, message: string, additionalData?: any): void {
+export function logInfo(context: string, message: string, additionalData?: unknown): void {
     console.info(`${context}:`, {
         message,
         additionalData
     });
 }
 
-export function logWarning(context: string, message: string, additionalData?: any): void {
+export function logWarning(context: string, message: string, additionalData?: unknown): void {
     console.warn(`${context}:`, {
         message,
         additionalData
@@ -45,7 +45,7 @@ export function handleError(
     context: ErrorContext,
     error: unknown,
     userMessage: string,
-    additionalData?: any
+    additionalData?: unknown
 ): ErrorResponse {
     logError(context, error, additionalData);
     return createErrorResponse(error, userMessage);
