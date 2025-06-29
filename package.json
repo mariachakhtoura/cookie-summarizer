@@ -1,0 +1,42 @@
+{
+    "name": "cookie-summarizer",
+    "version": "1.0.0",
+    "description": "A Chrome extension that transforms cookie data into engaging AI-powered summaries",
+    "main": "popup.js",
+    "scripts": {
+        "build": "webpack --config webpack.config.js"
+    },
+    "keywords": [
+        "chrome-extension",
+        "cookies",
+        "privacy",
+        "ai",
+        "chrome-ai",
+        "web-privacy",
+        "browser-extension"
+    ],
+    "author": "Maria Chakhtoura",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/chrome": "^0.0.268",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^13.0.0",
+        "fork-ts-checker-webpack-plugin": "^9.1.0",
+        "html-webpack-plugin": "^5.6.3",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.0.0",
+        "webpack": "^5.99.9",
+        "webpack-cli": "^6.0.1"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mariachakhtoura/cookie-summarizer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/mariachakhtoura/cookie-summarizer/issues"
+    },
+    "homepage": "https://github.com/mariachakhtoura/cookie-summarizer#readme"
+}

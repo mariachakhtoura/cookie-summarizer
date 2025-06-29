@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Chrome extension
+*.crx
+*.pem
+
+# Logs
+*.log
+
+# TypeScript
+*.js.map
+
+# Keep compiled JS files for Chrome extension
+# These are needed for the extension to work
+# *.js

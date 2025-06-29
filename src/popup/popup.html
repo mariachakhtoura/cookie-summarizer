@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Summarizer</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title" id="dynamicTitle">Cookie Summarizer</h1>
+                <p class="subtitle" id="dynamicSubtitle">Loading...</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="analysisContent" class="analysis-content" style="display: none;">
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Analyzing cookies...</p>
+                </div>
+            </div>
+
+            <div class="cookie-details" id="cookieDetails" style="display: none;">
+                <h4>Cookie Details</h4>
+                <div class="cookie-list" id="cookieList"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
