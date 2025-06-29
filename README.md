@@ -25,11 +25,11 @@ A Chrome extension that analyzes website cookies and explains them through AI-ge
 3. Use it:
    - Visit any website
    - Click the extension icon
-   - Read your personalized cookie story
+   - Read the cookie analysis summary
 
 ## How it works
 
-The extension reads cookies from the current tab, categorizes them by purpose (analytics, ads, authentication, etc.), then asks Chrome's AI to write an engaging explanation of what's happening with your data.
+The extension reads cookies from the current tab, then asks Chrome's AI to write a summary of what's happening with your data.
 
 Works entirely locally - no data leaves your browser.
 
