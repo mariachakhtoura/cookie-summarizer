@@ -1,6 +1,6 @@
 import { handleError, createSuccessResponse } from '../utils/logger';
 import { ErrorContext, ErrorMessage } from '../utils/error-constants';
-import { MessageType, GetCookiesMessage, AnalyzeCookiesMessage, GetPageInfoMessage, AnalyzePageCookiesMessage, CookieCountUpdatedMessage, ExtensionMessage, StorageData, InstallationDetails, ResponseCallback } from '../types/index';
+import { MessageType, GetCookiesMessage, AnalyzeCookiesMessage, CookieCountUpdatedMessage, ExtensionMessage, StorageData, InstallationDetails, ResponseCallback } from '../types/index';
 
 chrome.runtime.onInstalled.addListener(async (details: InstallationDetails): Promise<void> => {
     try {
@@ -26,6 +26,11 @@ chrome.runtime.onMessage.addListener((message: ExtensionMessage, sender: chrome.
 
             case MessageType.ANALYZE_COOKIES: {
                 handleAnalyzeCookies(message, sendResponse);
+                return true;
+            }
+
+            case MessageType.COOKIE_COUNT_UPDATED: {
+                handleCookieCountUpdated(message, sendResponse);
                 return true;
             }
 
@@ -95,6 +100,24 @@ async function handleAnalyzeCookies(message: AnalyzeCookiesMessage, sendResponse
             error,
             ErrorMessage.UNKNOWN_ERROR_ANALYZING_COOKIES,
             { cookiesCount: message.cookies?.length }
+        );
+        sendResponse(errorResponse);
+    }
+}
+
+async function handleCookieCountUpdated(message: CookieCountUpdatedMessage, sendResponse: ResponseCallback): Promise<void> {
+    try {
+        const successResponse = createSuccessResponse({
+            count: message.count,
+            url: message.url
+        });
+        sendResponse(successResponse);
+    } catch (error) {
+        const errorResponse = handleError(
+            ErrorContext.MESSAGE_HANDLER,
+            error,
+            'Error handling cookie count update',
+            { count: message.count, url: message.url }
         );
         sendResponse(errorResponse);
     }

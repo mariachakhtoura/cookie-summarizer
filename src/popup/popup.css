@@ -1,40 +1,40 @@
 /* =============================================================================
-   CSS Custom Properties (Variables) - Cookie Theme
+   CSS Custom Properties (Variables)
    ============================================================================= */
 :root {
-    /* Primary Colors - Cookie Theme */
-    --color-primary: #ea580c;
-    --color-primary-dark: #dc2626;
-    --color-primary-light: #f97316;
-    --color-secondary: #f59e0b;
-    --color-secondary-light: #fbbf24;
+    /* Primary Colors */
+    --color-primary: #1e3a8a;
+    --color-primary-dark: #1e293b;
+    --color-primary-light: #1e40af;
+    --color-secondary: #0f172a;
+    --color-secondary-light: #334155;
 
     /* Background Colors */
-    --color-bg-primary: #fefce8;
-    --color-bg-secondary: #fef7ed;
-    --color-bg-card: #fef3c7;
-    --color-bg-accent: #fde68a;
+    --color-bg-primary: #f1f5f9;
+    --color-bg-secondary: #e2e8f0;
+    --color-bg-card: #cbd5e1;
+    --color-bg-accent: #94a3b8;
     --color-bg-error: #fef2f2;
 
     /* Text Colors */
-    --color-text-primary: #7c2d12;
-    --color-text-secondary: #92400e;
-    --color-text-accent: #ea580c;
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #1e293b;
+    --color-text-accent: #1e3a8a;
     --color-text-error: #dc2626;
-    --color-text-muted: #6b7280;
+    --color-text-muted: #475569;
     --color-text-white: #ffffff;
 
     /* Border Colors */
-    --color-border-primary: #fed7aa;
-    --color-border-secondary: #f59e0b;
-    --color-border-light: #fecaca;
+    --color-border-primary: #94a3b8;
+    --color-border-secondary: #1e3a8a;
+    --color-border-light: #cbd5e1;
     --color-border-disabled: #d1d5db;
 
     /* Shadow Colors */
-    --shadow-primary: rgba(194, 120, 3, 0.15);
-    --shadow-secondary: rgba(245, 158, 11, 0.15);
-    --shadow-accent: rgba(234, 88, 12, 0.3);
-    --shadow-hover: rgba(234, 88, 12, 0.4);
+    --shadow-primary: rgba(30, 58, 138, 0.2);
+    --shadow-secondary: rgba(15, 23, 42, 0.2);
+    --shadow-accent: rgba(30, 58, 138, 0.4);
+    --shadow-hover: rgba(30, 58, 138, 0.5);
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
